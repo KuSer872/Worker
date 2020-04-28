@@ -142,7 +142,11 @@
     <ClCompile Include="Worker.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="sorting.h" />
     <ClInclude Include="Worker.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="f.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

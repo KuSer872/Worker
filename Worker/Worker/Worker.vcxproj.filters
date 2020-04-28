@@ -26,5 +26,11 @@
     <ClInclude Include="Worker.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="sorting.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="f.txt" />
   </ItemGroup>
 </Project>
