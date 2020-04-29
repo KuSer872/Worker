@@ -3,7 +3,7 @@
 #include "sorting.h"
 using namespace std;
 
-void Search(Worker* arr, int n, int exp)
+void Exp(Worker* arr, int n, int exp)
 {
 	if (exp != -1) {
 		bool flag = 0;
@@ -138,7 +138,7 @@ int main()
 	while (exp != -1)
 	{
 		cin >> exp;
-		Search(workers, n, exp);
+		Exp(workers, n, exp);
 	}
 }
 
