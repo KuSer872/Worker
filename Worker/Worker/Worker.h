@@ -13,6 +13,7 @@ private:
 public:
 	Worker()
 	{
+		f = "";
 		name = "";
 		post = "";
 		year = 0;
@@ -24,12 +25,19 @@ public:
 		this->post = post;
 		this->year = year;
 	}
-	Worker(const Worker& a)
+	Worker(Worker& a)
 	{
 		this->f = a.f;
 		this->name = a.name;
 		this->post = a.post;
 		this->year = a.year;
+	}
+	void reset()
+	{
+		f = "";
+		name = "";
+		post = "";
+		year = 0;
 	}
 	friend ostream& operator<<(ostream& os, const Worker a)
 	{
@@ -39,19 +47,19 @@ public:
 	{
 		return is >> a.f >> a.name >> a.post >> a.year;
 	}
-	bool operator>(const Worker a)
+	bool operator>(const Worker& a)
 	{
-		return this->year > a.year;
+		return f.compare(a.f) > 0;
 	}
-	bool operator<(const Worker a)
+	bool operator<(const Worker& a)
 	{
-		return this->year < a.year;
+		return f.compare(a.f) < 0;
 	}
-	bool operator==(const Worker a)
+	bool operator==(const Worker& a)
 	{
-		return this->year == a.year;
+		return f.compare(a.f) == 0;
 	}
-	string getF()
+	string get_f()
 	{
 		return this->f;
 	}
@@ -67,7 +75,7 @@ public:
 	{
 		Worker* A = (Worker*)a;
 		Worker* B = (Worker*)b;
-		return strcmp(A->getF().c_str(), B->getF().c_str());
+		return A->get_f().compare(B->get_f());
 	}
 	static int sort_post(const void* a, const void* b)
 	{
@@ -79,9 +87,9 @@ public:
 	{
 		Worker A = *(Worker*)a;
 		Worker B = *(Worker*)b;
-		if (A > B)
+		if (A.get_year() > B.get_year())
 			return 1;
-		else if (A == B)
+		else if (A.get_year() == B.get_year())
 			return 0;
 		else
 			return -1;

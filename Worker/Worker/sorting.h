@@ -1,109 +1,88 @@
 #include <iostream>
 template <class T>
-inline void insertion_sort(T* A, int n, int (*comp)(const void*, const void*))
+inline void insertion_sort(T* A, int n)
 {
 
 	for (int i = 1; i < n; i++) {
+		T key = A[i];
 		int j = i - 1;
-		while (j >= 0 && comp(&A[j], &A[j + 1]) > 0)
+		while (j >= 0 && A[j] > key)
 		{
-			T tmp = A[j];
-			A[j] = A[j + 1];
-			A[j + 1] = tmp;
+			A[j + 1] = A[j];
 			j = j - 1;
 		}
+		A[j + 1] = key;
 	}
 }
 
 template <class T>
-inline void selection_sort(T* A, int n, int (*comp)(const void*, const void*))
+inline void selection_sort(T* A, int n)
 {
-	for (int i = 0; i < n - 2; i++)
+	for (int i = 0; i < n - 1; i++)
 	{
 		int min = i;
-		for (int j = i + 1; j < n - 1; j++)
-			if (comp(&A[min], &A[j]) > 0)
+		for (int j = i + 1; j < n; j++)
+			if (A[min] > A[j])
 				min = j;
-		T tmp = A[i];
-		A[i] = A[min];
-		A[min] = tmp;
-	}
-}
 
-template <class T>
-inline void bubble_sort(T* A, int n, int (*comp)(const void*, const void*))
-{
-	for (int i = 1; i < n; i++)
-	{
-		bool flag = 0;
-		int min = i;
-		for (int j = i; j < n - i - 1; j++)
-		{
-			if (comp(&A[j], &A[j + 1]) > 0)
-			{
-				T tmp = A[j];
-				A[j] = A[j + 1];
-				A[j + 1] = tmp;
-				flag = 1;
-			}
-			if (!comp(&A[j], &A[min]))
-				min = j;
-		}
-		if (!flag)
-			break;
-		if (min != i)
-		{
+		if (min != i) {
 			T tmp = A[i];
 			A[i] = A[min];
 			A[min] = tmp;
 		}
-
-
 	}
 }
 
 template <class T>
-inline void shell_sort(T* A, int l, int r, int (*comp)(const void*, const void*))
+inline void bubble_sort(T* A, int n)
 {
-	for (int d = (r - l) / 2; d != 0; d /= 2)
-		for (int i = l + d; i != r; ++i)
-			for (int j = i; j - l >= d && !comp(&A[j], &A[j - d]); j -= d) {
+	for (int i = 0; i < n - 1; i++)
+		for (int j = 0; j < n - i - 1; j++)
+			if (A[j] > A[j + 1])
+			{
 				T tmp = A[j];
-				A[j] = A[j - d];
-				A[j - d] = tmp;
+				A[j] = A[j + 1];
+				A[j + 1] = tmp;
+			}
+
+}
+
+template <class T>
+inline void shell_sort(T* A, int n)
+{
+	for (int step = n / 2; step > 0; step /= 2)
+		for (int i = step; i < n; i++)
+			for (int j = i - step; j >= 0 && A[j] > A[j + step]; j -= step)
+			{
+				T tmp = A[j];
+				A[j] = A[j + step];
+				A[j + step] = tmp;
 			}
 }
 
 template <class T>
-inline void quick_sort(T* A, int l, int r, int (*comp)(const void*, const void*))
+inline void quick_sort(T* A, int left, int right, bool start = true)
 {
-	if (l < r) {
-		int q = partition(A, l, r, comp);
-		quick_sort(A, l, q, comp);
-		quick_sort(A, q + 1, r, comp);
-	}
-}
-
-template <class T>
-inline int partition(T* A, int l, int r, int (*comp)(const void*, const void*))
-{
-	T v = A[(l + r) / 2];
-	int i = l;
-	int j = r;
-
-	while (i <= j) {
-		while (comp(&v, &A[i]) > 0)
-			i++;
-
-		while (comp(&A[j], &v) > 0)
-			j--;
-
-		if (i >= j)
-			break;
-
-		T tmp = A[i++];
-		A[i++] = A[j--];
-		A[j--] = tmp;
-	}
-	return j;
+	if (start) right -= 1;
+	T mid = A[(left + right) / 2];
+	int l = left; int r = right;
+	do {
+		while (A[l] < mid)
+			l++;
+		while (A[r] > mid)
+			r--;
+		if (l <= r) {
+			if (l < r) {
+				T help = A[l];
+				A[l] = A[r];
+				A[r] = help;
+			}
+			l++;
+			r--;
+		}
+	} while (l <= r);
+	if (l < right)
+		quick_sort(A, l, right, false);
+	if (left < r)
+		quick_sort(A, left, r, false);
 }

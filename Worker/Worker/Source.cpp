@@ -9,7 +9,7 @@ void Search(Worker* arr, int n, int exp)
 		bool flag = 0;
 		for (int i = 0; i < n; i++)
 			if (2020 - arr[i].get_year() > exp) {
-				cout << arr[i].getF() << endl;
+				cout << arr[i].get_f() << endl;
 				flag = 1;
 			}
 		if (!flag)
@@ -34,14 +34,14 @@ int main()
 	for (int i = 0; i < n; i++)
 		cout << workers[i];
 
-	qsort(workers, n, sizeof(Worker), Worker::sort_f);
+	qsort(workers, n, sizeof(Worker), Worker::sort_x3);
 
 	fstream out("Workers.bin", ios::out | ios::binary);
 	for (int i = 0; i < n; i++)
 		workers[i].writeBin(out);
 	out.close();
 
-	cout << endl << endl << "BIN READING QSORT\nsort by name" << endl << endl;
+	cout << endl << endl << "BIN READING QSORT\nsort x3" << endl << endl;
 
 	fstream in("Workers.bin", ios::in | ios::binary);
 	for (int i = 0; i < n; i++)
@@ -52,46 +52,81 @@ int main()
 
 	for (int i = 0; i < n; i++)
 		cout << workers[i];
+
+	for (int i = 0; i < n; i++)
+		workers[i].reset();
+	f.clear();
+	f.seekg(ios_base::beg);
+
+	f >> n;
 	for (int i = 0; i < n; i++)
 		f >> workers[i];
 
-	insertion_sort(workers, n, Worker::sort_x3);
+	insertion_sort(workers, n);
 
 	cout << endl << endl << "Insertion Sort" << endl << endl;
 
 	for (int i = 0; i < n; i++)
 		cout << workers[i];
+
+	for (int i = 0; i < n; i++)
+		workers[i].reset();
+	f.clear();
+	f.seekg(ios_base::beg);
+
+	f >> n;
 	for (int i = 0; i < n; i++)
 		f >> workers[i];
 
-	selection_sort(workers, n, Worker::sort_x3);
+	selection_sort(workers, n);
 
 	cout << endl << endl << "Selection Sort" << endl << endl;
 
 	for (int i = 0; i < n; i++)
 		cout << workers[i];
+
+	for (int i = 0; i < n; i++)
+		workers[i].reset();
+	f.clear();
+	f.seekg(ios_base::beg);
+
+	f >> n;
 	for (int i = 0; i < n; i++)
 		f >> workers[i];
 
-	bubble_sort(workers, n, Worker::sort_x3);
+	bubble_sort(workers, n);
 
 	cout << endl << endl << "Bubble Sort" << endl << endl;
 
 	for (int i = 0; i < n; i++)
 		cout << workers[i];
+
+	for (int i = 0; i < n; i++)
+		workers[i].reset();
+	f.clear();
+	f.seekg(ios_base::beg);
+
+	f >> n;
 	for (int i = 0; i < n; i++)
 		f >> workers[i];
 
-	shell_sort(workers, 0, n - 1, Worker::sort_x3);
+	shell_sort(workers, n);
 
 	cout << endl << endl << "Shell Sort" << endl << endl;
 
 	for (int i = 0; i < n; i++)
 		cout << workers[i];
+
+	for (int i = 0; i < n; i++)
+		workers[i].reset();
+	f.clear();
+	f.seekg(ios_base::beg);
+
+	f >> n;
 	for (int i = 0; i < n; i++)
 		f >> workers[i];
 
-	quick_sort(workers, 0, n - 1, Worker::sort_x3);
+	quick_sort(workers, 0, n - 1);
 
 	cout << endl << endl << "Quick Sort" << endl << endl;
 
